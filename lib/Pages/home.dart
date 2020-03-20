@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Home ${widget.user.email}')
+        title: Text('Home')
       ),
       body:
       StreamBuilder<DocumentSnapshot>(
@@ -28,9 +28,19 @@ class _HomeState extends State<Home> {
             return Text('Error: ${snapshot.error}');
           }
           switch(snapshot.connectionState){
-            case ConnectionState.waiting: return Text('Loading...');
-            default:
-              return Text(snapshot.data['name']);
+            case ConnectionState.waiting: return
+              Text(
+                  'Loading...'
+              );
+            default: return
+              Column(
+                children: <Widget>[
+                  Text(
+                      'Welcome ${snapshot.data['name']}',
+                    style: TextStyle(fontSize: 20),
+                  )
+                ],
+              );
           }
         },
       )

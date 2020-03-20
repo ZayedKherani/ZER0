@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ZER0/Pages/Setup/signIn.dart';
-import 'package:ZER0/Pages/home.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -23,6 +22,13 @@ class _WelcomePageState extends State<WelcomePage> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 7.5),
+            child:
+            Image.asset(
+                'assets/The_Zero_Logo _(1).png'
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(30.0, 7.5, 30.0, 7.5),
             child:
             RaisedButton(
               onPressed: (){

@@ -24,19 +24,30 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body:
-      Form(
-        key: _formKey,
-        child:
-          Column(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 7.5),
-                child:
+      ListView(
+        children: <Widget>[
+          Form(
+            key: _formKey,
+            child:
+            Column(
+              children: <Widget>[
+                Container(
+                  //height: _screenSize.height * 0.249161877399,
+                  padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 7.5),
+                  child:
+                  Image.asset(
+                    'assets/The_Zero_Logo _(1).png',
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 7.5),
+                  child:
                   TextFormField(
                     controller: email,
                     // ignore: missing_return
@@ -56,41 +67,43 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: 'Email'
                     ),
                   ),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(30.0, 7.5, 30.0, 30.0),
-                child:
-                TextFormField(
-                  controller: password,
-                  // ignore: missing_return
-                  validator: (input){
-                    if(input.isEmpty){
-                      return 'Password is required';
-                    } else if(input.length < 8){
-                      return 'Password is too short';
-                    }
-                  },
-                  onSaved: (input) => _password = input,
-                  decoration: InputDecoration(
-                      fillColor: Colors.blue,
-                      border: new OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(25.0),
-                        borderSide: new BorderSide(
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(30.0, 7.5, 30.0, 30.0),
+                  child:
+                  TextFormField(
+                    controller: password,
+                    // ignore: missing_return
+                    validator: (input){
+                      if(input.isEmpty){
+                        return 'Password is required';
+                      } else if(input.length < 8){
+                        return 'Password is too short';
+                      }
+                    },
+                    onSaved: (input) => _password = input,
+                    decoration: InputDecoration(
+                        fillColor: Colors.blue,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
                         ),
-                      ),
-                      labelText: 'Password'
+                        labelText: 'Password'
+                    ),
+                    obscureText: true,
                   ),
-                  obscureText: true,
                 ),
-              ),
-              RaisedButton(
-                onPressed: signIn,
-                child: Text(
-                  'Sign in'
-                ),
-              )
-            ],
-          ),
+                RaisedButton(
+                  onPressed: signIn,
+                  child: Text(
+                      'Sign in'
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       )
     );
   }
