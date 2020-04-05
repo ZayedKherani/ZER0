@@ -13,12 +13,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Home')
+        title: Text('Home'),
+        actions: <Widget>[
+
+        ],
       ),
       body:
       StreamBuilder<DocumentSnapshot>(
@@ -28,22 +32,46 @@ class _HomeState extends State<Home> {
             return Text('Error: ${snapshot.error}');
           }
           switch(snapshot.connectionState){
-            case ConnectionState.waiting: return
-              Text(
-                  'Loading...'
-              );
-            default: return
-              Column(
-                children: <Widget>[
-                  Text(
-                      'Welcome ${snapshot.data['name']}',
-                    style: TextStyle(fontSize: 20),
+            case ConnectionState.waiting:
+            return Text(
+                'Loading...'
+            );
+            default:
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 7.5),
+                  child:
+                  Image.asset(
+                    'assets/The_Zero_Logo _(1).png',
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(30.0, 7.5, 30.0, 7.5),
+                  child:
+                  RaisedButton(
+                    onPressed: (){},
+                    child: Text(
+                        'Checkout'
+                    ),
                   )
-                ],
-              );
-          }
-        },
-      )
+                ),
+                Container(
+                    padding: const EdgeInsets.fromLTRB(30.0, 7.5, 30.0, 7.5),
+                    child:
+                    RaisedButton(
+                      onPressed: (){},
+                      child: Text(
+                          'Return'
+                      ),
+                    )
+                ),
+              ],
+            );
+          } // switch(snapshot.connectionState)
+        }, // StreamBuilder builder:
+      ),
     );
   }
 }

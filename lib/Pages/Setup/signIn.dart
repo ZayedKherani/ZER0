@@ -15,7 +15,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String _email, _password;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -24,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -38,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
             Column(
               children: <Widget>[
                 Container(
-                  //height: _screenSize.height * 0.249161877399,
                   padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 7.5),
                   child:
                   Image.asset(
@@ -56,7 +53,6 @@ class _LoginPageState extends State<LoginPage> {
                         return 'Email is required';
                       }
                     },
-                    onSaved: (input) => _email = input,
                     decoration: InputDecoration(
                         fillColor: Colors.blue,
                         border: new OutlineInputBorder(
@@ -81,7 +77,6 @@ class _LoginPageState extends State<LoginPage> {
                         return 'Password is too short';
                       }
                     },
-                    onSaved: (input) => _password = input,
                     decoration: InputDecoration(
                         fillColor: Colors.blue,
                         border: new OutlineInputBorder(
@@ -116,9 +111,21 @@ class _LoginPageState extends State<LoginPage> {
         FirebaseUser user = (
             await FirebaseAuth.instance
                 .signInWithEmailAndPassword(
-                email: email.text, password: password.text
+                email: email.text.toLowerCase(), password: password.text
             )
         ).user;
+        if(user.isEmailVerified){
+          showDialog(
+            context: context,
+            builder: (context){
+              return AlertDialog(
+                content: Text(
+                  "Email Not Verified"
+                )
+              );
+            }
+          );
+        }
         Navigator.of(context).pop();
         Navigator.pushReplacement(
           context,
